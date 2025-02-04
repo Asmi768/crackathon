@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Crackathon Login</title>
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background: linear-gradient(135deg, #1e1e2f, #2c3e50);
+            color: white;
+            overflow: hidden;
+            text-align: center;
+        }
+        .login-container {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.5);
+            text-align: center;
+            position: relative;
+            z-index: 2;
+        }
+        input {
+            display: block;
+            margin: 15px auto;
+            padding: 12px;
+            width: 80%;
+            border: none;
+            border-radius: 5px;
+            text-align: center;
+            font-size: 16px;
+        }
+        button {
+            background-color: #e74c3c;
+            color: white;
+            padding: 12px 25px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: 0.3s;
+        }
+        button:hover {
+            background-color: #c0392b;
+        }
+        .facts-container {
+            position: absolute;
+            top: 20px;
+            width: 100%;
+            text-align: center;
+            font-size: 18px;
+            font-weight: bold;
+            transition: opacity 1s ease-in-out;
+        }
+    </style>
+</head>
+<body>
+    <div class="facts-container" id="facts"></div>
+    <div class="login-container">
+        <h2>Crack the Code</h2>
+        <input type="text" id="username" placeholder="Username">
+        <input type="password" id="password" placeholder="Password">
+        <button onclick="validateLogin()">Enter</button>
+    </div>
+    
+    <script>
+        // Disable Right Click
+        document.addEventListener("contextmenu", (event) => event.preventDefault());
+
+        // Disable F12, Ctrl+Shift+I, Ctrl+Shift+J, Ctrl+U
+        document.addEventListener("keydown", (event) => {
+            if (
+                event.key === "F12" ||
+                (event.ctrlKey && event.shiftKey && (event.key === "I" || event.key === "J")) ||
+                (event.ctrlKey && event.key === "U")
+            ) {
+                event.preventDefault();
+            }
+        });
+
+        function validateLogin() {
+            const username = document.getElementById("username").value;
+            const uesr = document.getElementById("password").value;
+            
+            const insults = [
+                "Wrong password? Maybe hacking isn't for you.",
+                "Is that the best you can do? Try harder.",
+                "Even my grandma could crack this faster.",
+                "Looks like you're not as smart as you thought.",
+                "Hackers don't guess. Think smarter.",
+                "Are you even trying? This is embarrassing.",
+                "You sure you're cut out for this?", 
+                "Maybe just stick to watching hacking movies."
+            ];
+            
+            const correctUsername = "admin";
+            const User = atob("MjAyNWNjc2l0Y3JhY2sj");
+            
+            if (username === correctUsername && uesr === User) {
+                window.location.href = "suces.html";
+            } else {
+                const randomInsult = insults[Math.floor(Math.random() * insults.length)];
+                alert("Incorrect username or password. " + randomInsult);
+            }
+        }
+
+        const facts = [
+            "Cybercrime damages are predicted to hit $10.5 trillion annually by 2025.",
+            "Every 39 seconds, a cyberattack occurs somewhere on the web.",
+            "95% of cybersecurity breaches are due to human error.",
+            "Ransomware attacks have increased by over 150% in recent years.",
+            "Phishing is the most common type of cyber attack."
+        ];
+        
+        function displayFacts() {
+            let factIndex = 0;
+            const factElement = document.getElementById("facts");
+            setInterval(() => {
+                factElement.style.opacity = 0;
+                setTimeout(() => {
+                    factElement.textContent = facts[factIndex];
+                    factElement.style.opacity = 1;
+                    factIndex = (factIndex + 1) % facts.length;
+                }, 1000);
+            }, 5000);
+        }
+        
+        displayFacts();
+    </script>
+</body>
+</html>
